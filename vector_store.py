@@ -60,7 +60,7 @@ def create_vector_store():
 
     print("🧠 Creating vector store...")
 
-    # 🔥 Ensure all processes closed
+    # Ensure all processes closed
     time.sleep(2)
 
     # Delete old DB

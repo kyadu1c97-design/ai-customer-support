@@ -3,7 +3,7 @@ import requests
 
 st.set_page_config(page_title="AI Chatbot", page_icon="🤖")
 
-# 🔝 Header + Clear Button
+# Header + Clear Button
 col1, col2 = st.columns([10, 1])
 
 with col1:
@@ -13,26 +13,26 @@ with col2:
     if st.button("🗑"):
         st.session_state.messages = []
 
-# 💬 Chat History Init
+# Chat History Init
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# 📜 Display Chat History
+# Display Chat History
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# 📝 User Input
+#  User Input
 user_input = st.chat_input("Type your question...")
 
 if user_input and user_input.strip():
 
-    # 👤 Show user message
+    # Show user message
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
         st.markdown(user_input)
 
-    # 🤖 Get bot response
+    #  Get bot response
     try:
         with st.spinner("Thinking..."):
             response = requests.post(
@@ -46,7 +46,7 @@ if user_input and user_input.strip():
             bot_reply = result.get("answer", "No response")
             sources = result.get("sources", [])
 
-            # 📌 Add sources (optional)
+            #  Add sources (optional)
             if sources:
                 bot_reply += f"\n\n📌 Sources: {', '.join(sources)}"
 
@@ -59,7 +59,7 @@ if user_input and user_input.strip():
     except:
         bot_reply = "⚠️ Something went wrong"
 
-    # 🤖 Show bot reply
+    # Show bot reply
     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
     with st.chat_message("assistant"):
         st.markdown(bot_reply)

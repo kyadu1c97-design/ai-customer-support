@@ -44,7 +44,7 @@ This project is an AI-powered customer support automation system that answers us
 ## Project Structure
 
 ```
-ai-customer-support-automation/
+AI-Customer-Support-Automation/
 │── screenshots/
 │   ├── ui.png
 │   ├── chat.png

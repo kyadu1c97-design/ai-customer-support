@@ -10,20 +10,10 @@ import time
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 
-# ✅ FIXED DELETE FUNCTION (Windows safe)
 def safe_delete_folder(folder_path):
     if os.path.exists(folder_path):
-        for i in range(5):  # retry 5 times
-            try:
-                shutil.rmtree(folder_path)
-                print(f"🗑️ Deleted old {folder_path}")
-                return
-            except Exception as e:
-                print(f"⚠️ Attempt {i+1}: Failed to delete ({e})")
-                time.sleep(1)
-
-        print("❌ Could not delete folder.")
-        print("👉 Close running apps (uvicorn / streamlit) and try again.")
+        shutil.rmtree(folder_path, ignore_errors=True)
+        print(f"🗑️ Deleted old {folder_path}")
 
 
 def create_vector_store():
@@ -96,7 +86,7 @@ def create_vector_store():
 
     time.sleep(1)
 
-    # ✅ Delete old DB (fixed)
+    # Delete old DB
     safe_delete_folder("faiss_index")
 
     print("🧠 Creating vector store...")
@@ -108,4 +98,4 @@ def create_vector_store():
 
 
 if __name__ == "__main__":
-    create_vector_store()
+    create_vector_store()  
